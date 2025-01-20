@@ -20,7 +20,7 @@ type Storage interface {
 
 type Page struct {
 	URL      string
-	UserName string
+	Username string
 }
 
 func (p *Page) Hash() (string, error) {
@@ -29,7 +29,7 @@ func (p *Page) Hash() (string, error) {
 	if errUrl != nil {
 		return "", e.Wrap(errHashField, errUrl)
 	}
-	_, errName := io.WriteString(h, p.UserName)
+	_, errName := io.WriteString(h, p.Username)
 	if errName != nil {
 		return "", e.Wrap(errHashField, errName)
 	}

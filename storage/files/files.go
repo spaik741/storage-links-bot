@@ -31,7 +31,7 @@ func New(basePath string) Storage {
 }
 
 func (s Storage) Save(p *storage.Page) error {
-	fPath := filepath.Join(s.basePath, p.UserName)
+	fPath := filepath.Join(s.basePath, p.Username)
 	if err := os.MkdirAll(fPath, 0755); err != nil {
 		return e.Wrap(saveErr, err)
 	}
@@ -72,7 +72,7 @@ func (s Storage) Remove(p *storage.Page) error {
 	if err != nil {
 		return err
 	}
-	fullName := filepath.Join(s.basePath, p.UserName, fileName)
+	fullName := filepath.Join(s.basePath, p.Username, fileName)
 	err = os.Remove(fullName)
 	if err != nil {
 		return e.Wrap(fmt.Sprintf(removeErr, fullName), err)
@@ -85,7 +85,7 @@ func (s Storage) IsExist(p *storage.Page) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	fullName := filepath.Join(s.basePath, p.UserName, fileName)
+	fullName := filepath.Join(s.basePath, p.Username, fileName)
 	_, err = os.Stat(fullName)
 	switch _, err = os.Stat(fullName); {
 	case errors.Is(err, os.ErrNotExist):
