@@ -3,15 +3,25 @@ package main
 import (
 	"flag"
 	"log"
-	"storage-links-bot/clients/telegram"
+	tgCLient "storage-links-bot/clients/telegram"
+	"storage-links-bot/consumer/eventconsumer"
+	"storage-links-bot/events/telegram"
+	"storage-links-bot/storage/files"
 )
 
 const (
-	tgBot = "api.telegram.org"
+	tgBot     = "api.telegram.org"
+	storage   = "storage"
+	batchSize = 100
 )
 
 func main() {
-	telegram.New(tgBot, mustToken())
+	tg := tgCLient.New(tgBot, mustToken())
+	path := files.New(storage)
+	eventProcessor := telegram.New(tg, path)
+	log.Printf("[INF] storage-link-bot started")
+	consumer := eventсonsumer.New(eventProcessor, eventProcessor, batchSize)
+	consumer.Start()
 }
 
 func mustToken() string {

@@ -26,8 +26,8 @@ type Client struct {
 	client   http.Client
 }
 
-func New(host, token string) Client {
-	return Client{
+func New(host, token string) *Client {
+	return &Client{
 		host:     host,
 		basePath: createBasePath(token),
 		client:   http.Client{},
