@@ -42,12 +42,12 @@ func (c *Client) Updates(offset, limit int) ([]Update, error) {
 	if err != nil {
 		return nil, err
 	}
-	var updates []Update
-	err = json.Unmarshal(request, &updates)
+	var response UpdateResponse
+	err = json.Unmarshal(request, &response)
 	if err != nil {
 		return nil, e.Wrap(parseErr, err)
 	}
-	return updates, nil
+	return response.Result, nil
 }
 
 func (c *Client) SendMessage(chatId int, text string) error {
