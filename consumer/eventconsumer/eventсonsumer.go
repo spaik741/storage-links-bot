@@ -24,7 +24,7 @@ func (c *Consumer) Start() {
 	for {
 		fetch, err := c.fetcher.Fetch(c.batchSize)
 		if err != nil {
-			log.Printf("[ERR] consumer %s", err.Error())
+			log.Printf("[ERR] consumer %s , %v", err.Error(), err)
 			continue
 		}
 		if len(fetch) == 0 {

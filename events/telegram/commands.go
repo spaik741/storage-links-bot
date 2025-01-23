@@ -45,6 +45,9 @@ func (p *Processor) savePage(path string, chatId int, username string) error {
 	if exist {
 		return senderMsg(msgAlreadyExists)
 	}
+	if err := p.storage.Save(&page); err != nil {
+		return err
+	}
 	err = senderMsg(msgSaved)
 	if err != nil {
 		return err

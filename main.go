@@ -11,7 +11,7 @@ import (
 
 const (
 	tgBot     = "api.telegram.org"
-	storage   = "storage"
+	storage   = "files"
 	batchSize = 100
 )
 

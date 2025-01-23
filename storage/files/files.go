@@ -45,8 +45,7 @@ func (s Storage) Save(p *storage.Page) error {
 		return e.Wrap(saveErr, err)
 	}
 	defer file.Close()
-	err = gob.NewDecoder(file).Decode(p)
-	if err != nil {
+	if err := gob.NewEncoder(file).Encode(p); err != nil {
 		return e.Wrap(saveErr, err)
 	}
 	return nil
@@ -105,7 +104,7 @@ func decodePage(filePath string) (*storage.Page, error) {
 	}
 	defer file.Close()
 	var p storage.Page
-	err = gob.NewEncoder(file).Encode(&p)
+	err = gob.NewDecoder(file).Decode(&p)
 	if err != nil {
 		return nil, e.Wrap(fmt.Sprintf(decodeErr, filePath), err)
 	}
