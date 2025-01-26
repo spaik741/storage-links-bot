@@ -9,6 +9,7 @@ import (
 	"path"
 	"storage-links-bot/lib/e"
 	"strconv"
+	"time"
 )
 
 const (
@@ -30,7 +31,7 @@ func New(host, token string) *Client {
 	return &Client{
 		host:     host,
 		basePath: createBasePath(token),
-		client:   http.Client{},
+		client:   http.Client{Timeout: time.Second * 5},
 	}
 }
 
