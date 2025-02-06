@@ -13,14 +13,16 @@ const (
 
 type Storage interface {
 	Save(p *Page) error
-	PickRandom(userName string) (*Page, error)
+	PickRandom(id string) (*Page, error)
 	Remove(p *Page) error
 	IsExist(p *Page) (bool, error)
+	PickAll(id string) ([]string, error)
 }
 
 type Page struct {
 	URL      string
 	Username string
+	ChatId   string
 }
 
 func (p *Page) Hash() (string, error) {

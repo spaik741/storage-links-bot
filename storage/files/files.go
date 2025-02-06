@@ -97,6 +97,26 @@ func (s Storage) IsExist(p *storage.Page) (bool, error) {
 	}
 }
 
+func (s Storage) PickAll(userName string) ([]string, error) {
+	path := filepath.Join(s.basePath, userName)
+	dir, err := os.ReadDir(path)
+	if err != nil {
+		return nil, e.Wrap(openDirErr, err)
+	}
+	if len(dir) == 0 {
+		return nil, errors.New(searchErr)
+	}
+	result := make([]string, 0, len(dir))
+	for _, file := range dir {
+		page, err := decodePage(filepath.Join(path, file.Name()))
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, page.URL)
+	}
+	return result, nil
+}
+
 func decodePage(filePath string) (*storage.Page, error) {
 	file, err := os.Open(filePath)
 	if err != nil {

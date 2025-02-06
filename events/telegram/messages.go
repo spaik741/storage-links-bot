@@ -14,4 +14,5 @@ const (
 	msgNoSavedPages   = "You have no saved pages 🙊"
 	msgSaved          = "Saved! 👍"
 	msgAlreadyExists  = "You have already have this page in your list 🤗"
+	msgClearStorage   = "Succeed! 👍"
 )
